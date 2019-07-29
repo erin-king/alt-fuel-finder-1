@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'As a user' do
   it 'can fill in the search form with 80206 and see a list of results' do
+    visit root_path
     fill_in :q, with: '80206'
     # And I click "Locate"
     click_button 'Locate'

@@ -15,12 +15,12 @@ class SearchResultsFacade
 
   private
 
-  def service_results
-    service.get_stations(@criteria)
-  end
-
   def service
     @_service ||= NrelService.new
+  end
+
+  def service_results
+    @service_results ||= service.get_stations(@criteria)
   end
 
 end

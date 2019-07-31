@@ -3,22 +3,24 @@ class SearchResultsFacade
     @criteria = criteria
   end
 
-  def results
-    conn = Faraday.new('https://developer.nrel.gov/') do |f|
-      f.params['api_key'] = ENV['NREL_API_KEY']
-      f.adapter Faraday.default_adapter
+  def station_results
+    service_results[:fuel_stations].map do |result_data|
+      FuelStation.new(result_data)
     end
-    response = conn.get("api/alt-fuel-stations/v1/nearest?format=json&location=#{@criteria}&fuel_type=ELEC,LPG&access=public&status=E")
-    results = JSON.parse(response.body, symbolize_names:true)
-
-    results.map do |result|
-        FuelStation.new(result_data)
-    end
-
   end
 
   def total_results
-    "#{results.count} Results"
+    "#{service_results[:total_results]} Results"
+  end
+
+  private
+
+  def service_results
+    service.get_stations(@criteria)
+  end
+
+  def service
+    @_service ||= NrelService.new
   end
 
 end

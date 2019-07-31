@@ -10,10 +10,9 @@ class SearchResultsFacade
     end
     response = conn.get("api/alt-fuel-stations/v1/nearest?format=json&location=#{@criteria}&fuel_type=ELEC,LPG&access=public&status=E")
     results = JSON.parse(response.body, symbolize_names:true)
-    binding.pry
 
     results.map do |result|
-        Result.new(result_data)
+        FuelStation.new(result_data)
     end
 
   end

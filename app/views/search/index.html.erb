@@ -1,0 +1,16 @@
+<h1> Your Results </h1>
+<section class='total-results'>
+  <h3> <%= facade.total_results %> </h3>
+</section>
+
+<section>
+  <% facade.station_results.each do |result| %>
+  <ul class='results-list'>
+    <li>Name: <%= result.name %></li>
+    <li>Address: <%= result.address %></li>
+    <li>Fuel Types: <%= result.fuel_type %></li>
+    <li>Distance: <%= result.distance %></li>
+    <li>Access Times: <%= result.access_times %></li>
+  </ul>
+  <% end %>
+</section>
